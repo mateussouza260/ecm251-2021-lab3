@@ -1,36 +1,43 @@
 package souza.mateus;
 
 public class Conta {
-    int numero;
-    double saldo;
-    Cliente cliente;
+    //Atributos de classe
+    private Cliente cliente;
+    private double saldo;
+    private int numero;
 
-    void visualizarSaldo() {
-        double saldo = this.saldo;
-        System.out.println("Saldo da conta: R$" + this.saldo);
-//        while(saldo>0){
-//            System.out.println("Gastando!!!"+saldo);
-//            saldo = saldo - 10;
-//        }
+
+    void visualizarSaldo(){
+        System.out.println("Saldo da conta: R$" + saldo);
+    }
+    void depoistar(double valor){
+        //this.saldo = this.saldo + valor;
+        this.saldo+=valor;
     }
 
-    void depositar(double valor) {
-        this.saldo += valor;
-    }
-
-    boolean sacar(double valor) {
-        if (this.saldo >= valor) {
+    boolean sacar(double valor){
+        if(this.saldo >= valor){
             this.saldo -= valor;
             return true;
+        } else {
+            return false;
         }
-        return false;
+    }
+    boolean transferirPara(double valor, Conta destino){
+        if(this.sacar(valor)){
+            destino.depoistar(valor);
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    boolean transferirPara(double valor, Conta destino) {
-        if (this.sacar(valor)) {
-            destino.depositar(valor);
-            return true;
-        }
-        return false;
+    @Override
+    public String toString() {
+        return "Conta{" +
+                "numero=" + numero +
+                ", saldo=" + saldo +
+                ", cliente=" + cliente.toString() +
+                '}';
     }
 }
